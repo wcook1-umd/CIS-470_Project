@@ -62,7 +62,7 @@ function interpret_bf(program, input="") {
                     break;
                 // everything else is a comment
             }
-        } else { // a while condition failed; skipping until matching bracket
+        } else { // a while condition failed; skipping forward until matching bracket
             switch (program[program_pointer]) {
                 case "[":
                     skip_until_brackets++;
