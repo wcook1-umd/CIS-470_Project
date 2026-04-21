@@ -1,7 +1,6 @@
 // Brainfuck memory is expected to be able to under- and overflow.
-// Unsigned shift (>>>) interprets numbers as u32s.
-function as_u32(n) {
-    return n >>> 0;
+function as_u8(n) {
+    return n % 256;
 }
 
 // Interpreter for Brainfuck, a famous esoteric programming language
@@ -20,10 +19,10 @@ function interpret_bf(program, input="") {
         if (skip_until_brackets <= 0) {
             switch (program[program_pointer]) {
                 case "+":
-                    tape[tape_pointer] = as_u32(tape[tape_pointer] + 1);
+                    tape[tape_pointer] = as_u8(tape[tape_pointer] + 1);
                     break;
                 case "-":
-                    tape[tape_pointer] = as_u32(tape[tape_pointer] - 1);
+                    tape[tape_pointer] = as_u8(tape[tape_pointer] - 1);
                     break;
                 case ">":
                     tape_pointer++;
@@ -41,7 +40,7 @@ function interpret_bf(program, input="") {
                     if (input_pointer >= input.length) {
                         tape[tape_pointer] = 0; // Return 0 for EOF
                     } else {
-                        tape[tape_pointer] = as_u32(input.codePointAt(input_pointer));
+                        tape[tape_pointer] = as_u8(input.codePointAt(input_pointer));
                         input_pointer++;
                     }
                     break;
