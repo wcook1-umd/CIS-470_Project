@@ -1,6 +1,15 @@
 // Brainfuck memory is expected to be able to under- and overflow.
 function as_u8(n) {
-    return n % 256;
+    return ((n % 256) + 256) % 256; //remainder operator WHYYYYY
+}
+
+function tape_str(tape, inst, tp) {
+    res = ""
+    for (i in tape) {
+        chr = i == tp ? inst : " "
+        res += chr + tape[i].toString().padStart(3, " ") + chr
+    }
+    return res
 }
 
 // Interpreter for Brainfuck, a famous esoteric programming language
@@ -17,6 +26,7 @@ function interpret_bf(program, input="") {
     skip_until_brackets = 0;
     for(let program_pointer = 0; program_pointer < program.length; program_pointer++) {
         if (skip_until_brackets <= 0) {
+            //console.log(`>${tape}< ${program[program_pointer]} ${tape_pointer}, ${program_pointer}`);
             switch (program[program_pointer]) {
                 case "+":
                     tape[tape_pointer] = as_u8(tape[tape_pointer] + 1);
@@ -27,13 +37,15 @@ function interpret_bf(program, input="") {
                 case ">":
                     tape_pointer++;
                     if (tape_pointer >= tape.length) {
-                        tape.append(0)
+                        tape.push(0)
                     }
                     break;
                 case "<":
                     tape_pointer--;
                     if (tape_pointer < 0) {
-                        throw new Error("Attempted to move pointer beyond left end of tape");
+                        //throw new Error("Attempted to move pointer beyond left end of tape");
+                        tape.unshift(0);
+                        tape_pointer = 0;
                     }
                     break;
                 case ",":
@@ -46,17 +58,20 @@ function interpret_bf(program, input="") {
                     break;
                 case ".":
                     output += String.fromCodePoint(tape[tape_pointer]);
+                    //console.log(tape_str(tape, program[program_pointer], tape_pointer), program_pointer);
+                    //console.log(String.fromCodePoint(tape[tape_pointer]), tape[tape_pointer])
                     break;
                 case "[":
                     if (tape[tape_pointer] == 0) {
-                        is_skipping = true;
+                        skip_until_brackets++;
                     } else {
-                        loop_stack.append(program_pointer)
+                        loop_stack.push(program_pointer);
                     }
                     break;
                 case "]":
                     if (tape[tape_pointer] != 0) {
-                        program_pointer = loop_stack.at(-1);
+                        program_pointer = loop_stack.at(-1); //bc of for loop actually jumps to instruction AFTER "["
+                    } else {
                         loop_stack.pop();
                     }
                     break;
@@ -74,8 +89,37 @@ function interpret_bf(program, input="") {
             }
         }
     }
+    //console.log(tape_str(tape, " ", tape_pointer));
     return output;
 }
+
+stdout = interpret_bf(">>>>--<-<<+[+[<+>--->->->-<<<]>]<<--.<++++++.<<-..<<.<+.>>.>>.<<<.+++.>>.>>-.<<<+.");
+//stdout = interpret_bf("-[++[<++>->+++>+++<<]---->+]<<<<.<<<<-.<..<<+.<<<<.>>.>>>-.<.+++.>>.>-.<<<<<+.");
+//stdout = interpret_bf("++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.");
+/* stdout = interpret_bf(`Calculate the value 256 and test if it's zero
+If the interpreter errors on overflow this is where it'll happen
+++++++++[>++++++++<-]>[<++++>-]
++<[>-<
+    Not zero so multiply by 256 again to get 65536
+    [>++++<-]>[<++++++++>-]<[>++++++++<-]
+    +>[>
+        # Print "32"
+        ++++++++++[>+++++<-]>+.-.[-]<
+    <[-]<->] <[>>
+        # Print "16"
+        +++++++[>+++++++<-]>.+++++.[-]<
+<<-]] >[>
+    # Print "8"
+    ++++++++[>+++++++<-]>.[-]<
+<-]<
+# Print " bit cells\n"
++++++++++++[>+++>+++++++++>+++++++++>+<<<<-]>-.>-.+++++++.+++++++++++.<.
+>>.++.+++++++..<-.>>-.
+Clean up used cells
+[[-]<]`); // */
+console.log(`"${stdout}"`);
+
+
 
 // module time
 module.exports = interpret_bf;

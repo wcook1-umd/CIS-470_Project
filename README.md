@@ -1,4 +1,4 @@
-# CIS-470_Project
+# Brainfuck Interpreter
 
 ```
 The slides should contain:
