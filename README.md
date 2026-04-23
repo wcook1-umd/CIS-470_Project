@@ -1,1 +1,1 @@
-# CIS-470_Project
+# Brainfuck Interpreter
