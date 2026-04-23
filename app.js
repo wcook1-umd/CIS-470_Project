@@ -3,6 +3,7 @@ function as_u8(n) {
     return ((n % 256) + 256) % 256; //remainder operator WHYYYYY
 }
 
+// Used to print the current tape state (for debug purposes)
 function tape_str(tape, inst, tp) {
     res = ""
     for (i in tape) {
@@ -26,7 +27,6 @@ function interpret_bf(program, input="") {
     skip_until_brackets = 0;
     for(let program_pointer = 0; program_pointer < program.length; program_pointer++) {
         if (skip_until_brackets <= 0) {
-            //console.log(`>${tape}< ${program[program_pointer]} ${tape_pointer}, ${program_pointer}`);
             switch (program[program_pointer]) {
                 case "+":
                     tape[tape_pointer] = as_u8(tape[tape_pointer] + 1);
@@ -43,7 +43,6 @@ function interpret_bf(program, input="") {
                 case "<":
                     tape_pointer--;
                     if (tape_pointer < 0) {
-                        //throw new Error("Attempted to move pointer beyond left end of tape");
                         tape.unshift(0);
                         tape_pointer = 0;
                     }
@@ -58,8 +57,6 @@ function interpret_bf(program, input="") {
                     break;
                 case ".":
                     output += String.fromCodePoint(tape[tape_pointer]);
-                    //console.log(tape_str(tape, program[program_pointer], tape_pointer), program_pointer);
-                    //console.log(String.fromCodePoint(tape[tape_pointer]), tape[tape_pointer])
                     break;
                 case "[":
                     if (tape[tape_pointer] == 0) {
@@ -70,7 +67,7 @@ function interpret_bf(program, input="") {
                     break;
                 case "]":
                     if (tape[tape_pointer] != 0) {
-                        program_pointer = loop_stack.at(-1); //bc of for loop actually jumps to instruction AFTER "["
+                        program_pointer = loop_stack.at(-1); //bc of for loop, actually jumps to instruction AFTER "["
                     } else {
                         loop_stack.pop();
                     }
@@ -89,7 +86,6 @@ function interpret_bf(program, input="") {
             }
         }
     }
-    //console.log(tape_str(tape, " ", tape_pointer));
     return output;
 }
 

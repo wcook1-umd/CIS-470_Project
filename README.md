@@ -21,6 +21,7 @@ Any other character is considered a comment and is ignored.
 
 ## Examples
 
+### "Hello, World!"
 This program prints "Hello, World!"
 ```
 Character values: 72 101 108 108 111 44 32 87 111 114 108 100 33 
@@ -51,11 +52,32 @@ Character values: 72 101 108 108 111 44 32 87 111 114 108 100 33
    0    0  72 100 108  44 *33  87  (Hello_ World!)
 ```
 
-This program determines if its input is a multiple of 7.
+This is the same program without comments:
 ```
-hm
+++++++[>+++<-]>[>++++>++++++>++++++>++>++>+++++<<<<<<-]>.>-------.>..+++.>++++++++.>----.>---.<<<.+++.------.<-.>>>+.
 ```
 
+### Test divisibility by 7
+This program determines if its input (assumed to be a number) is a multiple of 7.
+```
+++++++++[>++++++<-]>>   0  48
+,                       0  48 *49
+[
+  <
+  [<+>->-<]>           48   0  *1
+  [<+++>-]<            48   0   1  *0
+  [>+++++++[-<]]       
+
+  [>+<-]>>
+  ,
+]
+```
+07 > 7
+14 > 7
+21 > 7
+28 > 14
+35 > 14
+42 > 14
 
 # ignore this
 ```
@@ -76,4 +98,30 @@ The slides should contain:
       Is this docking? Dockerfile?
 7. Deployment using GitHub workflows (if applicable)
       This is that Actions stuff, okie
+
+Objective
+Show case skills you have learned and use the methods from the textbook, and
+the lectures, and automate testing of an arbitrary artifact under study.
+Get
+You will need a functional mini project.
+• Document the software's Usage by tools such as:
+o MkDocs
+o Sphinx Document (see videos)
+o Docusaurus (see videos, tutorial)
+o GitBook (see videos)
+Deliverable:
+• Developed CI/CD and testing process for the artifact under study (GitHub
+action yaml)
+• Use the “Application Specification of the Project you have chosen” to
+develop a mini application, Java, C#, Ruby and JS applications to manage
+and test (Both Whitebox and Blackbox testing)
+• Make a new repository for you project and use it for the
+application version controlling. Automate testing and deployment
+to server (or cloud storage) via GitHub Actions when “push” is
+triggered (CI/CD).
+• Deployment on a Cloud Server (Azure, AWS, Linode, Google …) if it
+is a web app.
+• Document the software's data model and schema, specifying the
+entities, attributes, and relationships. As an example refer to
+known software documentations (MongoDB or Flask).
 ```
