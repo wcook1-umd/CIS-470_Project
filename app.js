@@ -1,6 +1,6 @@
 // Brainfuck memory is expected to be able to under- and overflow.
 function as_u8(n) {
-    return ((n % 256) + 256) % 256; //remainder operator WHYYYYY
+    return n & 255; //no modulo operator Q_Q
 }
 
 // Used to print the current tape state (for debug purposes)
@@ -114,7 +114,6 @@ If the interpreter errors on overflow this is where it'll happen
 Clean up used cells
 [[-]<]`); // */
 console.log(`"${stdout}"`);
-
 
 
 // module time
