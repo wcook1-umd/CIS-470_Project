@@ -16,7 +16,7 @@ function tape_str(tape, inst, tp) {
 // Interpreter for Brainfuck, a famous esoteric programming language
 function interpret_bf(program, input="") {
     if (typeof program != "string") { 
-        throw new Error("Argument is not a string.")
+        throw new Error("Program is not a string.")
     }
 
     tape = [0];
