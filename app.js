@@ -57,6 +57,7 @@ function interpret_bf(program, input="") {
                     break;
                 case ".":
                     output += String.fromCodePoint(tape[tape_pointer]);
+                    console.log(output.at(-1)+" ("+tape[tape_pointer]+") "+tape);
                     break;
                 case "[":
                     if (tape[tape_pointer] == 0) {
@@ -113,8 +114,8 @@ If the interpreter errors on overflow this is where it'll happen
 >>.++.+++++++..<-.>>-.
 Clean up used cells
 [[-]<]`); // */
-console.log(`"${stdout}"`);
 
+console.log(`"${stdout}"`);
 
 // module time
 module.exports = interpret_bf;
