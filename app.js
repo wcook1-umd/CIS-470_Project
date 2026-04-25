@@ -119,3 +119,5 @@ console.log(`"${stdout}"`);
 
 // module time
 module.exports = interpret_bf;
+
+// this should take a file as a command-line argument
