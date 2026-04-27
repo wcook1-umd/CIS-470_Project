@@ -115,24 +115,24 @@ Show case skills you have learned and use the methods from the textbook, and
 the lectures, and automate testing of an arbitrary artifact under study.
 Get
 You will need a functional mini project.
-• Document the software's Usage by tools such as:
-o MkDocs
-o Sphinx Document (see videos)
-o Docusaurus (see videos, tutorial)
-o GitBook (see videos)
+   • Document the software's Usage by tools such as:
+      o MkDocs
+      o Sphinx Document (see videos)
+      o Docusaurus (see videos, tutorial)
+      o GitBook (see videos)
 Deliverable:
-• Developed CI/CD and testing process for the artifact under study (GitHub
-action yaml)
-• Use the “Application Specification of the Project you have chosen” to
-develop a mini application, Java, C#, Ruby and JS applications to manage
-and test (Both Whitebox and Blackbox testing)
-• Make a new repository for you project and use it for the
-application version controlling. Automate testing and deployment
-to server (or cloud storage) via GitHub Actions when “push” is
-triggered (CI/CD).
-• Deployment on a Cloud Server (Azure, AWS, Linode, Google …) if it
-is a web app.
-• Document the software's data model and schema, specifying the
-entities, attributes, and relationships. As an example refer to
-known software documentations (MongoDB or Flask).
+   • Developed CI/CD and testing process for the artifact under study (GitHub
+      action yaml)
+   • Use the “Application Specification of the Project you have chosen” to
+      develop a mini application, Java, C#, Ruby and JS applications to manage
+      and test (Both Whitebox and Blackbox testing)
+   • Make a new repository for you project and use it for the
+      application version controlling. Automate testing and deployment
+      to server (or cloud storage) via GitHub Actions when “push” is
+      triggered (CI/CD).
+   • Deployment on a Cloud Server (Azure, AWS, Linode, Google …) if it
+      is a web app.
+   • Document the software's data model and schema, specifying the
+      entities, attributes, and relationships. As an example refer to
+      known software documentations (MongoDB or Flask).
 ```

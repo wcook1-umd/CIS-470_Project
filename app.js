@@ -57,7 +57,7 @@ function interpret_bf(program, input="") {
                     break;
                 case ".":
                     output += String.fromCodePoint(tape[tape_pointer]);
-                    console.log(output.at(-1)+" ("+tape[tape_pointer]+") "+tape);
+                    //console.log(output.at(-1)+" ("+tape[tape_pointer]+") "+tape);
                     break;
                 case "[":
                     if (tape[tape_pointer] == 0) {
@@ -90,34 +90,29 @@ function interpret_bf(program, input="") {
     return output;
 }
 
-stdout = interpret_bf(">>>>--<-<<+[+[<+>--->->->-<<<]>]<<--.<++++++.<<-..<<.<+.>>.>>.<<<.+++.>>.>>-.<<<+.");
-//stdout = interpret_bf("-[++[<++>->+++>+++<<]---->+]<<<<.<<<<-.<..<<+.<<<<.>>.>>>-.<.+++.>>.>-.<<<<<+.");
-//stdout = interpret_bf("++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.");
-/* stdout = interpret_bf(`Calculate the value 256 and test if it's zero
-If the interpreter errors on overflow this is where it'll happen
-++++++++[>++++++++<-]>[<++++>-]
-+<[>-<
-    Not zero so multiply by 256 again to get 65536
-    [>++++<-]>[<++++++++>-]<[>++++++++<-]
-    +>[>
-        # Print "32"
-        ++++++++++[>+++++<-]>+.-.[-]<
-    <[-]<->] <[>>
-        # Print "16"
-        +++++++[>+++++++<-]>.+++++.[-]<
-<<-]] >[>
-    # Print "8"
-    ++++++++[>+++++++<-]>.[-]<
-<-]<
-# Print " bit cells\n"
-+++++++++++[>+++>+++++++++>+++++++++>+<<<<-]>-.>-.+++++++.+++++++++++.<.
->>.++.+++++++..<-.>>-.
-Clean up used cells
-[[-]<]`); // */
-
-console.log(`"${stdout}"`);
-
 // module time
 module.exports = interpret_bf;
 
 // this should take a file as a command-line argument
+//stdout = interpret_bf(">>>>--<-<<+[+[<+>--->->->-<<<]>]<<--.<++++++.<<-..<<.<+.>>.>>.<<<.+++.>>.>>-.<<<+.");
+//console.log(`"${stdout}"`);
+
+const fs = require('node:fs');
+
+if (process.argv.length >= 3 && process.argv[1].includes("app.js")) {
+    let fileName = process.argv[2];
+
+    let inp = "";
+    if (process.argv.length >= 4)
+        inp = process.argv[3];
+
+    let prog = "";
+    try {
+        prog = fs.readFileSync(fileName, 'utf8');
+    } catch (err) {
+        console.log(process.argv)
+        console.error(err);
+    }
+
+    console.log(interpret_bf(prog, inp))
+}
