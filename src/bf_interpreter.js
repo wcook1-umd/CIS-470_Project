@@ -1,17 +1,17 @@
 // Brainfuck memory is expected to be able to under- and overflow.
 function as_u8(n) {
-    return n & 255; //no modulo operator Q_Q
+    return n & 255; //undefined & 255 is 0?? what the hell is this language. im not testing for that.
 }
 
 // Used to print the current tape state (for debug purposes)
-function tape_str(tape, inst, tp) {
-    res = ""
-    for (i in tape) {
-        chr = i == tp ? inst : " "
-        res += chr + tape[i].toString().padStart(3, " ") + chr
-    }
-    return res
-}
+//function tape_str(tape, inst, tp) {
+//    res = ""
+//    for (i in tape) {
+//        chr = i == tp ? inst : " "
+//        res += chr + tape[i].toString().padStart(3, " ") + chr
+//    }
+//    return res
+//}
 
 // Interpreter for Brainfuck, a famous esoteric programming language
 function interpret_bf(program, input="") {
@@ -60,18 +60,25 @@ function interpret_bf(program, input="") {
                     //console.log(output.at(-1)+" ("+tape[tape_pointer]+") "+tape);
                     break;
                 case "[":
-                    if (tape[tape_pointer] == 0) {
+                    if (tape[tape_pointer] === 0) {
                         skip_until_brackets++;
                     } else {
                         loop_stack.push(program_pointer);
                     }
                     break;
                 case "]":
-                    if (tape[tape_pointer] != 0) {
-                        program_pointer = loop_stack.at(-1); //bc of for loop, actually jumps to instruction AFTER "["
+                    if(loop_stack.length) {
+                        if (tape[tape_pointer] != 0) {
+                            program_pointer = loop_stack.at(-1); //bc of for loop, actually jumps to instruction AFTER "["
+                        } else {
+                            loop_stack.pop();
+                        }
                     } else {
-                        loop_stack.pop();
+                        throw new Error("Mismatched right bracket at character "+(program_pointer+1)+".");
                     }
+                    break;
+                case undefined:
+                    throw new Error("Undefined character. Program pointer likely exceeded program length.");
                     break;
                 // everything else is a comment
             }
@@ -92,27 +99,3 @@ function interpret_bf(program, input="") {
 
 // module time
 module.exports = interpret_bf;
-
-// this should take a file as a command-line argument
-//stdout = interpret_bf(">>>>--<-<<+[+[<+>--->->->-<<<]>]<<--.<++++++.<<-..<<.<+.>>.>>.<<<.+++.>>.>>-.<<<+.");
-//console.log(`"${stdout}"`);
-
-const fs = require('node:fs');
-
-if (process.argv.length >= 3 && process.argv[1].includes("app.js")) {
-    let fileName = process.argv[2];
-
-    let inp = "";
-    if (process.argv.length >= 4)
-        inp = process.argv[3];
-
-    let prog = "";
-    try {
-        prog = fs.readFileSync(fileName, 'utf8');
-    } catch (err) {
-        console.log(process.argv)
-        console.error(err);
-    }
-
-    console.log(interpret_bf(prog, inp))
-}

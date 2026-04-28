@@ -135,4 +135,18 @@ Deliverable:
    • Document the software's data model and schema, specifying the
       entities, attributes, and relationships. As an example refer to
       known software documentations (MongoDB or Flask).
+
+ whats next?
+* Documentation
+** GitBook??
+* Command-Line Interface
+** have it read a file or smth
+* Integration Tests?
+** i have a few functions.. so maybe?
+* Blackbox vs Whitebox
+** i dont think i really have any whitebox tests..
+* Presentation
+** 10 minute powerpoint :I
+** oh god
+
 ```

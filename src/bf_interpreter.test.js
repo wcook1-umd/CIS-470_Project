@@ -1,4 +1,4 @@
-const interpret_bf = require('./app.js')
+const interpret_bf = require('./bf_interpreter.js')
 
 describe('interpret_bf', () => {
     test('Blank program should output nothing', () => {
@@ -7,6 +7,9 @@ describe('interpret_bf', () => {
 
     test('Wrong-type input should throw an error', () => {
         expect(() => {interpret_bf(4)}).toThrow("Program is not a string.");
+    });
+    test('Mismatched brackets should throw an error', () => {
+        expect(() => {interpret_bf("+[-]]")}).toThrow("Mismatched right bracket at character 5.");
     });
 
     // Test moving left can insert correctly
@@ -17,6 +20,9 @@ describe('interpret_bf', () => {
 
     test('I/O: ",." should output the first character of input', () => {
         expect(interpret_bf(",.", input="brainfuck")).toBe("b");
+    });
+    test('I/O: "," should output EOF (\\x00) at end of input', () => {
+        expect(interpret_bf("+,.", input="")).toBe("\x00");
     });
     test('I/O: "." should output a null character', () => {
         expect(interpret_bf(".", input="brainfuck")).toBe("\x00");

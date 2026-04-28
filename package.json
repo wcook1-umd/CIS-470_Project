@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --verbose --coverage",
-    "start": "node app.js"
+    "reset": "jest --clearCache",
+    "mutation": "rm -rf .stryker-tmp/* && stryker run --reporters html",
+    "start": "node main.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,8 @@
   },
   "homepage": "https://github.com/wcook1-umd/CIS-470_Project#readme",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "@stryker-mutator/core": "^9.6.1",
+    "@stryker-mutator/jest-runner": "^9.6.1"
   }
 }
