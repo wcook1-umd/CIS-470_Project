@@ -18,4 +18,6 @@ if (process.argv.length >= 3 && process.argv[1].includes("app.js")) {
     }
 
     console.log(interpret_bf(prog, inp))
+} else {
+    console.log("No file given.");
 }

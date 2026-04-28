@@ -19,7 +19,19 @@ This interpreter uses a bidirectional tape, so there are infinitely many cells o
 
 Any other character is considered a comment and is ignored.
 
-## Examples
+## Usage
+
+To build:
+```
+docker build -t bf-app .
+```
+
+To run:
+```
+docker run bf-app <file path> [input string]
+```
+
+## Example Programs
 
 ### "Hello, World!"
 This program prints "Hello, World!"
@@ -139,12 +151,6 @@ Deliverable:
  whats next?
 * Documentation
 ** GitBook??
-* Command-Line Interface
-** have it read a file or smth
-* Integration Tests?
-** i have a few functions.. so maybe?
-* Blackbox vs Whitebox
-** i dont think i really have any whitebox tests..
 * Presentation
 ** 10 minute powerpoint :I
 ** oh god
