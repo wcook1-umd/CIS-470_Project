@@ -39,14 +39,12 @@
         </div>
     </row>
     <div class="row">
-        <div class="col-md-6"><br><br><br>
-            <form id="codeForm">
+        <form id="codeForm">
+            <div class="col-md-6"><br><br><br>
                 <label for="code" class="form-check-label">Code:</label>
                 <input id="code" name="code" class="form-control" required>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <form id="otherStuffForm">
+            </div>
+            <div class="col-md-6">
                 <label for="input" class="form-check-label">Input:</label>
                 <input id="input" name="input" class="form-control" required>
                 <br>
@@ -54,12 +52,12 @@
                 <br>
                 <label for="output" class="form-check-label">Output:</label>
                 <input id="output" name="output" class="form-control" required readonly>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
     <script>
-        document.getElementById('triangleForm').addEventListener('submit', function(event) {
+        document.getElementById('codeForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const code = document.getElementById('code').value;
             const input = document.getElementById('input').value;
@@ -81,7 +79,6 @@
                 console.error('Error:', error);
             });
         });
-        
     </script>
 </body>
 </html>
