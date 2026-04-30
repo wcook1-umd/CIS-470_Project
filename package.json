@@ -22,8 +22,12 @@
   },
   "homepage": "https://github.com/wcook1-umd/CIS-470_Project#readme",
   "devDependencies": {
-    "jest": "^29.7.0",
     "@stryker-mutator/core": "^9.6.1",
-    "@stryker-mutator/jest-runner": "^9.6.1"
+    "@stryker-mutator/jest-runner": "^9.6.1",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "serverless-http": "^4.0.0"
   }
 }

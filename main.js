@@ -1,8 +1,9 @@
+const express = require('express');
+const serverless = require('serverless-http');
+const fs = require('node:fs');
 const interpret_bf = require('./bf_interpreter.js')
 
-const fs = require('node:fs');
-
-if (process.argv.length >= 3 && process.argv[1].includes("app.js")) {
+if (process.argv.length >= 3 && process.argv[1].includes("main.js")) {
     let fileName = process.argv[2];
 
     let inp = "";
@@ -18,6 +19,22 @@ if (process.argv.length >= 3 && process.argv[1].includes("app.js")) {
     }
 
     console.log(interpret_bf(prog, inp))
+
 } else {
-    console.log("No file given.");
+    const app = express();
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    app.use(express.static('public'));
+
+    app.get('/default/CIS470-Project', (req, res) => {
+        res.sendFile(__dirname + '/public/index.html');
+    })
+
+    app.post('/default/CIS470-Project/interpret', (req, res) => {
+        const { code, input } = req.body;
+        const output = interpret_bf(code, input)
+        res.json({ output });
+    })
+
+    module.exports.handler = serverless(app);
 }
