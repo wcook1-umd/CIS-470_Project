@@ -22,12 +22,12 @@ Any other character is considered a comment and is ignored.
 ## Usage
 
 To build:
-```
+```bash
 docker build -t bf-app .
 ```
 
 To run:
-```
+```bash
 docker run bf-app <file path> [input string]
 ```
 
