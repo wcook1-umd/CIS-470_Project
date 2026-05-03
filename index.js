@@ -30,10 +30,10 @@ if (process.argv.length >= 3 && process.argv[1].includes("index.js")) {
         res.sendFile(__dirname + '/public/index.html');
     })
 
-    app.post('/default/CIS470-Project/interpret', (req, res) => {
-        const { code, input } = req.body;
+    app.post('/default/interpret', (req, res) => {
+        const { code: code, input: input } = req.body;
         const output = interpret_bf(code, input);
-        res.json({ output });
+        res.json({ output: output });
     })
 
     module.exports.handler = serverless(app);

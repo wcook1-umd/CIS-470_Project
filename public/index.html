@@ -27,6 +27,9 @@
         svg{
             border: 1px solid black;
         }
+        textarea{
+            font-family: 'Courier New', Courier, monospace;
+        }
         
     </style>
 </head>
@@ -42,18 +45,18 @@
         <div class="col-md-6"><br>
             <form id="codeForm">
                 <label for="code" class="form-check-label">Code:</label>
-                <textarea id="code" name="code" class="form-control" required>++++ ++++[&gt;+++ +++&lt;-].</textarea>
+                <textarea id="code" name="code" class="form-control" rows="10" required>++++ ++++[&gt;+++ +++&lt;-]&gt;.</textarea>
             </form>
         </div>
         <div class="col-md-6">
             <form id="ioForm">
                 <label for="input" class="form-check-label">Input:</label>
-                <input id="input" name="input" class="form-control" required>
+                <input id="input" name="input" class="form-control">
                 <br>
                 <button type="submit" class="btn btn-primary">Run Code</button>
                 <br><br>
                 <label for="output" class="form-check-label">Output:</label>
-                <input id="output" name="output" class="form-control" required readonly>
+                <input id="output" name="output" class="form-control" readonly>
             </form>
         </div>
     </div>
@@ -64,18 +67,18 @@
             const code = document.getElementById('code').value;
             const input = document.getElementById('input').value;
 
-            fetch('/default/CIS470-Project/interpret', {
+            fetch('/default/interpret', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ code, input })
+                body: JSON.stringify({ code: code, input: input })
             })
             .then(response => response.json())
             .then(data => {
                 const outputBox = document.getElementById('output');
                 console.log(data);
-                outputBox.value = data.result;
+                outputBox.value = data.output;
             })
             .catch(error => {
                 console.error('Error:', error);
