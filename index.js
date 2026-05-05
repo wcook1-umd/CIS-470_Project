@@ -1,7 +1,8 @@
 const express = require('express');
 const serverless = require('serverless-http');
 const fs = require('node:fs');
-const interpret_bf = require('./src/bf_interpreter.js')
+const interpreter = require('./src/bf_interpreter.js')
+const interpret_bf = interpreter.interpret_bf
 
 if (process.argv.length >= 3 && process.argv[1].includes("index.js")) {
     let fileName = process.argv[2];
