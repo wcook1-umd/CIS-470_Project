@@ -11,7 +11,7 @@ describe('as_u8', () => {
         expect(as_u8(0)).toBe(0);
     });
     test('as_u8(1) == 1', () => {
-        expect(as_u8(1)).toBe(0);
+        expect(as_u8(1)).toBe(1);
     });
     test('as_u8(57) == 57', () => {
         expect(as_u8(57)).toBe(57);
