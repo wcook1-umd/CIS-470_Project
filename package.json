@@ -8,8 +8,8 @@
     "reset": "jest --clearCache",
     "mutation": "rm -rf .stryker-tmp/* && stryker run --reporters html",
     "start": "node index.js",
-    "where-github": "echo 'Go to https://github.com/wcook1-umd/CIS-470_Project'",
-    "where-aws": "echo 'Go to https://8jvyswe902.execute-api.us-east-1.amazonaws.com/default/CIS470-Project'",
+    "github": "firefox https://github.com/wcook1-umd/CIS-470_Project",
+    "aws": "firefox https://8jvyswe902.execute-api.us-east-1.amazonaws.com/default/CIS470-Project",
     "open-frontend": "echo 'no backend :(' && firefox ./public/index.html"
   },
   "repository": {
