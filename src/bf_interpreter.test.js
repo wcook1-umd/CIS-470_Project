@@ -1,6 +1,36 @@
-const interpret_bf = require('./bf_interpreter.js')
+const {as_u8, interpret_bf} = require('./bf_interpreter.js')
 
-describe('interpret_bf', () => {
+describe('as_u8', () => {
+    test('"undefined" should throw an error', () => {
+        expect(() => {as_u8(undefined)}).toThrow("Undefined value, likely due to out-of-bounds read.");
+    });
+    test('as_u8(-1) == 255', () => {
+        expect(as_u8(-1)).toBe(255);
+    });
+    test('as_u8(0) == 0', () => {
+        expect(as_u8(0)).toBe(0);
+    });
+    test('as_u8(1) == 1', () => {
+        expect(as_u8(1)).toBe(0);
+    });
+    test('as_u8(57) == 57', () => {
+        expect(as_u8(57)).toBe(57);
+    });
+    test('as_u8(255) == 255', () => {
+        expect(as_u8(255)).toBe(255);
+    });
+    test('as_u8(256) == 0', () => {
+        expect(as_u8(256)).toBe(0);
+    });
+    test('as_u8(257) == 1', () => {
+        expect(as_u8(257)).toBe(1);
+    });
+    test('as_u8(1000) == 232', () => {
+        expect(as_u8(1000)).toBe(232);
+    });
+});
+
+describe('Basic Functionality', () => {
     test('Blank program should output nothing', () => {
         expect(interpret_bf("")).toBe("");
     });
@@ -22,7 +52,7 @@ describe('interpret_bf', () => {
         expect(interpret_bf(",.", input="brainfuck")).toBe("b");
     });
     test('I/O: "," should output EOF (\\x00) at end of input', () => {
-        expect(interpret_bf("+,.", input="")).toBe("\x00");
+        expect(interpret_bf("+,.")).toBe("\x00");
     });
     test('I/O: "." should output a null character', () => {
         expect(interpret_bf(".", input="brainfuck")).toBe("\x00");
@@ -39,14 +69,16 @@ describe('interpret_bf', () => {
         expect(interpret_bf("+>>>>>+<-[+>[<++++>-]<<-] ++++ ++++[>+++ +++<-]>.")).toBe("0");
     });
 
-    test('nested loops should function properly', () => { 
+    test('Loops: nested loops should function properly', () => { 
         expect(interpret_bf("+>>+[+[<]<]>>.")).toBe("\x02"); 
     });
     // Takes WAYY to long as it is.. O(n^2) :/
     //test('the tape should have at least 30000 cells', () => { // 254 times: 254 times: push a 1 to the right. Should use about 65000 cells.
     //    expect(interpret_bf("+<-<<--[>--[>>-[+[.[-]]>-]>+<+[-<+]-<-]<-]")).toBe(""); //If a non-zero value is found while pushing, it is printed.
     //});
+});
 
+describe('Test Programs', () => {
     // Two "Hello, World!" programs I found online
     test('Program: should output "Hello World!\\n"', () => {
         expect(interpret_bf(">++++++++[-<+++++++++>]<.>>+>-[+]++>++>+++[>[->+++<<+++>]<<]>-----.>->\
@@ -65,4 +97,4 @@ describe('interpret_bf', () => {
         expect(interpret_bf(`++++++++[>++++++<-]>>>>>++<<<,[<[<+>->-<]<[>+<-]>>>[<++++>-]<[->[------->]>[<]<++++++<],]
             >[>++++++++++++[>+++++++++<-]>.+.<]>>[+++++++++[>+++++++++++>+++++++++<<-]>.>++.<------.<]`, input="2401")).toBe("yes");
     });
-})
+});

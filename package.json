@@ -7,7 +7,9 @@
     "test": "jest --verbose --coverage",
     "reset": "jest --clearCache",
     "mutation": "rm -rf .stryker-tmp/* && stryker run --reporters html",
-    "start": "node main.js"
+    "start": "node index.js",
+    "where-aws": "echo 'Go to https://8jvyswe902.execute-api.us-east-1.amazonaws.com/default/CIS470-Project'",
+    "open-frontend": "echo 'no backend :(' && firefox ./public/index.html"
   },
   "repository": {
     "type": "git",

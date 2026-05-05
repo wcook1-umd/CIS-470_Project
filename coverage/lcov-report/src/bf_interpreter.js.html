@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.07% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/51</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.85% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>26/28</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/50</span>
+                <span class='fraction'>51/51</span>
             </div>
         
             
@@ -164,7 +164,8 @@
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14573x</span>
+<span class="cline-any cline-yes">14582x</span>
+<span class="cline-any cline-yes">14581x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,17 +233,15 @@
 <span class="cline-any cline-yes">977x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2668x</span>
+<span class="cline-any cline-yes">2667x</span>
 <span class="cline-any cline-yes">1745x</span>
-<span class="cline-any cline-yes">1745x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">922x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">923x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2668x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2667x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -257,13 +256,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">// Brainfuck memory is expected to be able to under- and overflow.
 function as_u8(n) {
-    return n &amp; 255; //no modulo operator Q_Q
+    if (n === undefined) throw new Error("Undefined value. Program pointer likely exceeded program length."); // I hate JS
+    return n &amp; 255;
 }
 &nbsp;
 // Used to print the current tape state (for debug purposes)
@@ -330,18 +331,16 @@ function interpret_bf(program, input="") {
                     }
                     break;
                 case "]":
-                    if (tape[tape_pointer] != 0) {
-                        if(loop_stack) {
+                    if(loop_stack.length) {
+                        if (tape[tape_pointer] != 0) {
                             program_pointer = loop_stack.at(-1); //bc of for loop, actually jumps to instruction AFTER "["
-                        } else <span class="missing-if-branch" title="else path not taken" >E</span>{
-<span class="cstat-no" title="statement not covered" >                            throw new Error("Mismatched right bracket at character "+(program_pointer+1)+".");</span>
+                        } else {
+                            loop_stack.pop();
                         }
                     } else {
-                        loop_stack.pop();
+                        throw new Error("Mismatched right bracket at character "+(program_pointer+1)+".");
                     }
                     break;
-<span class="branch-8 cbranch-no" title="branch not covered" >                case undefined:</span>
-<span class="cstat-no" title="statement not covered" >                    throw new Error("Undefined character. Program pointer likely exceeded program length.");</span>
                 // everything else is a comment
             }
         } else { // a while condition failed; skipping forward until matching bracket
@@ -360,14 +359,15 @@ function interpret_bf(program, input="") {
 }
 &nbsp;
 // module time
-module.exports = interpret_bf;</pre></td></tr></table></pre>
+module.exports.as_u8 = as_u8;
+module.exports.interpret_bf = interpret_bf;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-28T08:17:24.915Z
+                at 2026-05-05T02:22:20.361Z
             </div>
         <script src="../prettify.js"></script>
         <script>

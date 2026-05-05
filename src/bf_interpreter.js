@@ -1,6 +1,7 @@
 // Brainfuck memory is expected to be able to under- and overflow.
 function as_u8(n) {
-    return n & 255; //undefined & 255 is 0?? what the hell is this language. im not testing for that.
+    if (n === undefined) throw new Error("Undefined value, likely due to out-of-bounds read."); // I hate JS
+    return n & 255;
 }
 
 // Used to print the current tape state (for debug purposes)
@@ -77,9 +78,6 @@ function interpret_bf(program, input="") {
                         throw new Error("Mismatched right bracket at character "+(program_pointer+1)+".");
                     }
                     break;
-                case undefined:
-                    throw new Error("Undefined character. Program pointer likely exceeded program length.");
-                    break;
                 // everything else is a comment
             }
         } else { // a while condition failed; skipping forward until matching bracket
@@ -98,4 +96,5 @@ function interpret_bf(program, input="") {
 }
 
 // module time
-module.exports = interpret_bf;
+module.exports.as_u8 = as_u8;
+module.exports.interpret_bf = interpret_bf;
